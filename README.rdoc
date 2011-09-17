@@ -1,0 +1,19 @@
+== Active Record OR clause support demo project
+
+*<b>NOTE: This is just a proof-of-concept project. If you are serious about ising "OR" clauses in your ActiveRecord code, take a look at {Squeel}[http://github.com/ernie/squeel] instead</b>
+
+=== How it works
+
+Let's assume you have the following scopes:
+
+  scope :johnes, where(:first_name => "John")
+  scope :smiths, where(:last_name => "Smith")
+
+Once you require "lib/ar_or_where" file, you can combine the scopes like this:
+
+  User.johnes.or(User.smiths)
+  => SELECT "users".* FROM "users"
+     WHERE (("users"."first_name" = 'John'
+     OR "users"."last_name" = 'Smith'))
+
+
